@@ -6,13 +6,8 @@ const agent = new https.Agent({
 });
 
 async function fetchAsteroidData(url) {
-    try {
-        const response = await axios.get(url, {httpsAgent: agent});
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data from NASA API:', error);
-        throw error;
-    }
+    const response = await axios.get(url, { httpsAgent: agent });
+    return response.data;
 }
 
 module.exports = {fetchAsteroidData};

@@ -1,16 +1,15 @@
 ﻿const express = require('express');
 const { getAsteroidData } = require('../usecases/getAsteroidData');
+const { nasaApiUrl, nasaApiKey } = require('../../config');
 
 const router = express.Router();
 
-router.get('/meteors', async (req, res) => {
+router.get('/meteors', async (req, res, next) => {
     try {
-        const apiUrl = process.env.NASA_API_URL;
-        const apiKey = process.env.NASA_API_KEY;
-        const data = await getAsteroidData(apiUrl, apiKey);
+        const data = await getAsteroidData(nasaApiUrl, nasaApiKey);
         res.json(data);
     } catch (error) {
-        res.status(500).send('Error fetching data from NASA API');
+        next(error);
     }
 });
 

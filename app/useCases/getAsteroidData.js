@@ -6,13 +6,10 @@ async function getAsteroidData(apiUrl, apiKey) {
     const url = `${apiUrl}?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
     const data = await fetchAsteroidData(url);
     const asteroids = data.near_earth_objects;
-    const formattedData = [];
 
-    Object.keys(asteroids).forEach(date => {
-        formattedData.push(...formatAsteroidData(asteroids[date]));
-    });
-
-    return formattedData;
+    return Object.keys(asteroids)
+        .map(date => formatAsteroidData(asteroids[date]))
+        .flat();
 }
 
 module.exports = { getAsteroidData };
