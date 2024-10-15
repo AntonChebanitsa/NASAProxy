@@ -1,6 +1,8 @@
-﻿function errorHandler(err, req, res, next) {
+﻿function errorHandler(err, req, res) {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
     console.error(err.stack);
-    res.status(500).json({ message: 'Something went wrong!' });
+    res.status(statusCode).json({ message });
 }
 
 module.exports = errorHandler;

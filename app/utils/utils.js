@@ -2,7 +2,7 @@
 
 function getWeekDates() {
     const today = DateTime.now();
-    const startOfWeek = today.startOf('week').plus({ days: 1 });
+    const startOfWeek = today.startOf('week');
     const endOfWeek = startOfWeek.plus({ days: 4 });
 
     const startDate = startOfWeek.toFormat('yyyy-MM-dd');
