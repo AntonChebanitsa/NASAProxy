@@ -1,7 +1,7 @@
 ﻿const express = require('express');
 const { getAsteroidData } = require('../usecases/getAsteroidData');
 const { nasaApiUrl, nasaApiKey } = require('../../config');
-const fetchingMeteorsException = require("../customExceptions/fetchingMeteorsException");
+const Exception = require("../customExceptions/Exception");
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.get('/meteors', async (req, res, next) => {
         const data = await getAsteroidData(nasaApiUrl, nasaApiKey);
         res.json(data);
     } catch (error) {
-        next(new fetchingMeteorsException());
+        next(new Exception(error.statusCode, error.message));
     }
 });
 
