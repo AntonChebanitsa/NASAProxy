@@ -11,6 +11,29 @@ function getWeekDates() {
     return { startDate, endDate };
 }
 
+function calculateDateRange(start_date, end_date) {
+    let startDate, endDate;
+
+    if (start_date && end_date) {
+        startDate = start_date;
+        endDate = end_date;
+    } else if (start_date) {
+        startDate = start_date;
+        const endDateObj = new Date(start_date);
+        endDateObj.setDate(endDateObj.getDate() + 7);
+        endDate = endDateObj.toISOString().split('T');
+    } else if (end_date) {
+        endDate = end_date;
+        const startDateObj = new Date(end_date);
+        startDateObj.setDate(startDateObj.getDate() - 7);
+        startDate = startDateObj.toISOString().split('T');
+    } else {
+        ({ startDate, endDate } = getWeekDates());
+    }
+
+    return { startDate, endDate };
+}
+
 function formatAsteroidData(data) {
     return data.map(asteroid => {
         const closeApproachData = asteroid.close_approach_data[0];
@@ -26,4 +49,4 @@ function formatAsteroidData(data) {
     });
 }
 
-module.exports = { getWeekDates, formatAsteroidData };
+module.exports = { calculateDateRange, formatAsteroidData };
