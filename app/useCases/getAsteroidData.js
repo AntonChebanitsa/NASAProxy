@@ -5,29 +5,19 @@ async function getAsteroidData(apiUrl, apiKey, startDate, endDate, includeSentry
     const data = await fetchAsteroidData(apiUrl, apiKey, startDate, endDate);
     const asteroids = data.near_earth_objects;
 
-    let formattedData = Object.keys(asteroids)
-        .flatMap(date => formatAsteroidData(asteroids[date]));
-
-    let response = { data: formattedData };
+    const formattedData = Object.values(asteroids).flatMap(formatAsteroidData);
+    const response = { data: formattedData };
 
     if (checkDangerousMeteors) {
-        const hasDangerousMeteors = Object.keys(asteroids)
-            .flatMap(date => asteroids[date])
+        response.wereDangerousMeteors = Object.values(asteroids)
+            .flat()
             .some(asteroid => asteroid.is_potentially_hazardous_asteroid);
-
-        if (hasDangerousMeteors) {
-            response.wereDangerousMeteors = true;
-        }
     }
 
     if (includeSentryObjectsCount) {
-        let sentryAsteroids = Object.keys(asteroids)
-            .flatMap(date => asteroids[date])
-            .filter(asteroid => asteroid.is_sentry_object);
-
-        if (sentryAsteroids.length > 0) {
-            response.sentryObjectsCount = sentryAsteroids.length;
-        }
+        response.sentryObjectsCount = Object.values(asteroids)
+            .flat()
+            .filter(asteroid => asteroid.is_sentry_object).length;
     }
 
     return response;

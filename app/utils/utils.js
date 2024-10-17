@@ -12,24 +12,8 @@ function getWeekDates() {
 }
 
 function calculateDateRange(start_date, end_date) {
-    let startDate, endDate;
-
-    if (start_date && end_date) {
-        startDate = start_date;
-        endDate = end_date;
-    } else if (start_date) {
-        startDate = start_date;
-        const endDateObj = new Date(start_date);
-        endDateObj.setDate(endDateObj.getDate() + 7);
-        endDate = endDateObj.toISOString().split('T');
-    } else if (end_date) {
-        endDate = end_date;
-        const startDateObj = new Date(end_date);
-        startDateObj.setDate(startDateObj.getDate() - 7);
-        startDate = startDateObj.toISOString().split('T');
-    } else {
-        ({ startDate, endDate } = getWeekDates());
-    }
+    const startDate = start_date || (end_date ? new Date(new Date(end_date).setDate(new Date(end_date).getDate() - 7)).toISOString().split('T') : getWeekDates().startDate);
+    const endDate = end_date || (start_date ? new Date(new Date(start_date).setDate(new Date(start_date).getDate() + 7)).toISOString().split('T') : getWeekDates().endDate);
 
     return { startDate, endDate };
 }
