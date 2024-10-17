@@ -11,6 +11,13 @@ function getWeekDates() {
     return { startDate, endDate };
 }
 
+function calculateDateRange(start_date, end_date) {
+    const startDate = start_date || (end_date ? new Date(new Date(end_date).setDate(new Date(end_date).getDate() - 7)).toISOString().split('T') : getWeekDates().startDate);
+    const endDate = end_date || (start_date ? new Date(new Date(start_date).setDate(new Date(start_date).getDate() + 7)).toISOString().split('T') : getWeekDates().endDate);
+
+    return { startDate, endDate };
+}
+
 function formatAsteroidData(data) {
     return data.map(asteroid => {
         const closeApproachData = asteroid.close_approach_data[0];
@@ -26,4 +33,4 @@ function formatAsteroidData(data) {
     });
 }
 
-module.exports = { getWeekDates, formatAsteroidData };
+module.exports = { calculateDateRange, formatAsteroidData };

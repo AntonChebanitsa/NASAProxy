@@ -1,14 +1,26 @@
-﻿const { fetchAsteroidDataForWeekDates } = require('../repository/nasaApi');
-const { formatAsteroidData, getWeekDates } = require('../utils/utils');
+﻿const {fetchAsteroidData} = require('../repository/nasaApi');
+const {formatAsteroidData} = require('../utils/utils');
 
-async function getAsteroidData(apiUrl, apiKey) {
-    const {startDate, endDate} = getWeekDates();
-    const data = await fetchAsteroidDataForWeekDates(apiUrl, apiKey, startDate, endDate);
+async function getAsteroidData(apiUrl, apiKey, startDate, endDate, includeSentryObjectsCount, checkDangerousMeteors) {
+    const data = await fetchAsteroidData(apiUrl, apiKey, startDate, endDate);
     const asteroids = data.near_earth_objects;
 
-    return Object.keys(asteroids)
-        .map(date => formatAsteroidData(asteroids[date]))
-        .flat();
+    const formattedData = Object.values(asteroids).flatMap(formatAsteroidData);
+    const response = { data: formattedData };
+
+    if (checkDangerousMeteors) {
+        response.wereDangerousMeteors = Object.values(asteroids)
+            .flat()
+            .some(asteroid => asteroid.is_potentially_hazardous_asteroid);
+    }
+
+    if (includeSentryObjectsCount) {
+        response.sentryObjectsCount = Object.values(asteroids)
+            .flat()
+            .filter(asteroid => asteroid.is_sentry_object).length;
+    }
+
+    return response;
 }
 
-module.exports = { getAsteroidData };
+module.exports = {getAsteroidData};
