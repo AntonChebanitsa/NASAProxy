@@ -1,6 +1,6 @@
 ﻿const express = require('express');
-const {getAsteroidData} = require('../usecases/getAsteroidData');
-const {nasaApiUrl, nasaApiKey} = require('../../config');
+const {getAsteroidData} = require('../services/meteor.service');
+const {nasaApiUrl, nasaApiKey} = require('../config/config');
 const Exception = require("../customExceptions/Exception");
 const {calculateDateRange} = require('../utils/utils');
 
