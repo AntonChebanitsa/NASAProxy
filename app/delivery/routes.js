@@ -8,8 +8,9 @@ const router = express.Router();
 
 router.get('/meteors', async (req, res, next) => {
     try {
-        const {start_date, end_date, sentry_objects_count, were_dangerous_meteors} = req.query;
-        const {startDate, endDate} = calculateDateRange(start_date, end_date);
+        const { date, sentry_objects_count, were_dangerous_meteors } = req.query;
+        const parsedDate = date ? JSON.parse(date) : undefined;
+        const { startDate, endDate } = calculateDateRange(parsedDate);
 
         const checkSentryObjectsCount = sentry_objects_count?.trim() === 'true';
         const checkDangerousMeteors = were_dangerous_meteors?.trim() === 'true';
