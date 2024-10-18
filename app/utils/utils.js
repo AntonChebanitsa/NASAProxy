@@ -11,11 +11,14 @@ function getWeekDates() {
     return { startDate, endDate };
 }
 
-function calculateDateRange(start_date, end_date) {
-    const startDate = start_date || (end_date ? new Date(new Date(end_date).setDate(new Date(end_date).getDate() - 7)).toISOString().split('T') : getWeekDates().startDate);
-    const endDate = end_date || (start_date ? new Date(new Date(start_date).setDate(new Date(start_date).getDate() + 7)).toISOString().split('T') : getWeekDates().endDate);
+function calculateDateRange(date) {
+    const weekDates = getWeekDates();
+    const [startDate, endDate] = Array.isArray(date) ? date : [date, date];
 
-    return { startDate, endDate };
+    return {
+        startDate: startDate || weekDates.startDate,
+        endDate: endDate || startDate || weekDates.endDate
+    };
 }
 
 function formatAsteroidData(data) {
