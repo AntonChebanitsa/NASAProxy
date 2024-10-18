@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const routes = require('./app/controllers/meteor.controller');
+const router = require("./app/routes/router");
 const errorHandler = require('./app/middleware/errorHandler');
 const { port } = require('./app/config/config');
 const nunjucks = require('nunjucks');
@@ -15,7 +15,7 @@ nunjucks.configure('app/views', {
 
 app.set('view engine', 'njk');
 
-app.use('/', routes);
+app.use('/', router);
 app.use(errorHandler);
 
 app.listen(port, () => {

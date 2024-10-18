@@ -5,11 +5,11 @@ const agent = new https.Agent({
     rejectUnauthorized: false
 });
 
-async function fetchAsteroidData(apiUrl, apiKey, startDate, endDate) {
-    const url = `${apiUrl}/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`;
+async function fetchMostRecentRoverImage(apiUrl, apiKey) {
+    const url = `${apiUrl}/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${apiKey}`;
     const response = await axios.get(url, {httpsAgent: agent});
 
     return response.data;
 }
 
-module.exports = {fetchAsteroidData};
+module.exports = {fetchMostRecentRoverImage};
