@@ -1,12 +1,12 @@
 ﻿const express = require('express');
-const {getAsteroidData} = require('../services/meteor.service');
-const {nasaApiUrl, nasaApiKey} = require('../config/config');
-const Exception = require("../customExceptions/Exception");
-const {calculateDateRange} = require('../utils/utils');
+const {getAsteroidData} = require('../../services/meteor.service');
+const {nasaApiUrl, nasaApiKey} = require('../../config/config');
+const Exception = require("../../customExceptions/Exception");
+const {calculateDateRange} = require('../../utils/utils');
 
 const router = express.Router();
 
-router.get('/meteors', async (req, res, next) => {
+const meteorsController = async (req, res, next) => {
     try {
         const { date, sentry_objects_count, were_dangerous_meteors } = req.query;
         const parsedDate = date ? JSON.parse(date) : undefined;
@@ -25,6 +25,6 @@ router.get('/meteors', async (req, res, next) => {
     } catch (error) {
         next(new Exception(error.statusCode, error.message));
     }
-});
+};
 
-module.exports = router;
+module.exports = meteorsController;
