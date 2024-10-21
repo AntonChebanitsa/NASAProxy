@@ -8,6 +8,7 @@ const nunjucks = require('nunjucks');
 
 const app = express();
 
+app.use('/', router);
 nunjucks.configure('app/views', {
     autoescape: true,
     express: app
@@ -15,7 +16,6 @@ nunjucks.configure('app/views', {
 
 app.set('view engine', 'njk');
 
-app.use('/', router);
 app.use(errorHandler);
 
 app.listen(port, () => {
