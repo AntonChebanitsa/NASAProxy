@@ -8,7 +8,10 @@ const nunjucks = require('nunjucks');
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/', router);
+
 nunjucks.configure('app/views', {
     autoescape: true,
     express: app
