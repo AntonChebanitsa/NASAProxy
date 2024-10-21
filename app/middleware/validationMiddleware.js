@@ -1,6 +1,4 @@
-﻿const Joi = require('joi');
-
-const validateRequest = (schema) => {
+﻿const validateRequest = (schema) => {
     return (req, res, next) => {
         const { error } = schema.validate(req.body);
         if (error) {

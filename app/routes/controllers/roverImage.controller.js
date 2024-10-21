@@ -1,9 +1,6 @@
 ﻿const Exception = require("../../customExceptions/Exception");
-const express = require("express");
 const {getMostRecentRoverImage} = require("../../services/roverImage.service");
 const {nasaApiUrl} = require('../../config/config');
-
-const router = express.Router();
 
 const roverImageController = async (req, res, next) => {
     try {
