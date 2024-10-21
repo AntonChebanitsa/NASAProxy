@@ -1,4 +1,4 @@
-﻿const {fetchAsteroidData} = require('../repository/nasaApi');
+﻿const {fetchAsteroidData} = require('../repositories/meteor.repository');
 const {formatAsteroidData} = require('../utils/utils');
 
 async function getAsteroidData(apiUrl, apiKey, startDate, endDate, includeSentryObjectsCount, checkDangerousMeteors) {
