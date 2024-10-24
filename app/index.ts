@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use('/', router);
 
-nunjucks.configure('src/views', {
+nunjucks.configure('app/views', {
   autoescape: true,
   express: app,
 });

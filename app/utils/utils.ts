@@ -25,8 +25,6 @@ function calculateDateRange(date?: DateTime | DateTime[]): { startDate: string; 
     endDate = startDate;
   }
 
-  console.log({ startDate }, { endDate });
-
   return {
     startDate: startDate.toFormat('yyyy-MM-dd') || weekDates.startDate,
     endDate: endDate.toFormat('yyyy-MM-dd') || startDate.toFormat('yyyy-MM-dd') || weekDates.endDate,

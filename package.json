@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --loader ts-node/esm src/index.ts",
+    "dev": "ts-node-dev --loader ts-node/esm app/index.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "node --loader ts-node/esm src/index.ts"
+    "start": "node --loader ts-node/esm app/index.ts"
   },
   "license": "ISC",
   "dependencies": {
