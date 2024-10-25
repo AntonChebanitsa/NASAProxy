@@ -1,12 +1,16 @@
 require('dotenv').config();
 
 const express = require('express');
-const routes = require('./app/controllers/meteor.controller');
+const router = require("./app/routes/router");
 const errorHandler = require('./app/middleware/errorHandler');
 const { port } = require('./app/config/config');
 const nunjucks = require('nunjucks');
 
 const app = express();
+
+app.use(express.json());
+
+app.use('/', router);
 
 nunjucks.configure('app/views', {
     autoescape: true,
@@ -15,7 +19,6 @@ nunjucks.configure('app/views', {
 
 app.set('view engine', 'njk');
 
-app.use('/', routes);
 app.use(errorHandler);
 
 app.listen(port, () => {
