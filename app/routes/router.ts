@@ -14,4 +14,8 @@ router.get('/meteors', validateRequest(meteorsSchema), (req: Request, res: Respo
   meteorsController(req, res, next);
 });
 
+router.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
+});
+
 export default router;
